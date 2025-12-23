@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { ShoppingCart, Trash2, ArrowRight, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
 
 export default function CartPage() {
   const router = useRouter();
@@ -19,6 +20,13 @@ export default function CartPage() {
   const shipping = subtotal > 50 ? 0 : 5.99;
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + shipping + tax;
+
+  const handleRemoveFromCart = (productId: string, productName: string) => {
+    removeFromCart(productId);
+    toast.success("Removed from cart", {
+      description: productName,
+    });
+  };
 
   if (items.length === 0) {
     return (
@@ -133,7 +141,12 @@ export default function CartPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => removeFromCart(item.product.id)}
+                        onClick={() =>
+                          handleRemoveFromCart(
+                            item.product.id,
+                            item.product.name
+                          )
+                        }
                         className="text-red-600 hover:text-red-700 hover:bg-red-50"
                       >
                         <Trash2 className="h-5 w-5" />

@@ -16,6 +16,7 @@ import {
   ShippingInfo,
   initializeDummyOrders,
 } from "@/lib/data/orders";
+import { toast } from "sonner";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -88,6 +89,7 @@ export default function CheckoutPage() {
     e.preventDefault();
 
     if (!validateForm()) {
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -114,8 +116,16 @@ export default function CheckoutPage() {
     // Clear cart
     clearCart();
 
-    // Redirect to success page
-    router.push(`/checkout/success?orderId=${order.id}`);
+    // Show success toast
+    toast.success("Order placed successfully!", {
+      description: `Order #${order.orderNumber} has been created`,
+      duration: 3000,
+    });
+
+    // Redirect to home page after a short delay
+    setTimeout(() => {
+      router.push("/");
+    }, 1500);
   };
 
   if (items.length === 0) {
