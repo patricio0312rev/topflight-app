@@ -256,14 +256,34 @@ export default function ProductDetailsPage() {
           {/* Product Details Tabs */}
           <Card>
             <Tabs defaultValue="description" className="w-full">
-              <TabsList className="w-full grid grid-cols-4 h-auto">
-                <TabsTrigger value="description">Description</TabsTrigger>
-                <TabsTrigger value="benefits">Benefits</TabsTrigger>
-                <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
-                <TabsTrigger value="directions">How to Use</TabsTrigger>
+              <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 h-auto p-1">
+                <TabsTrigger
+                  value="description"
+                  className="text-xs sm:text-sm py-2 px-2"
+                >
+                  Description
+                </TabsTrigger>
+                <TabsTrigger
+                  value="benefits"
+                  className="text-xs sm:text-sm py-2 px-2"
+                >
+                  Benefits
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ingredients"
+                  className="text-xs sm:text-sm py-2 px-2"
+                >
+                  Ingredients
+                </TabsTrigger>
+                <TabsTrigger
+                  value="directions"
+                  className="text-xs sm:text-sm py-2 px-2"
+                >
+                  How to Use
+                </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="description" className="p-6">
+              <TabsContent value="description" className="p-4 sm:p-6">
                 <h3 className="text-lg font-semibold mb-4">
                   Product Description
                 </h3>
@@ -271,7 +291,7 @@ export default function ProductDetailsPage() {
                   {product.longDescription}
                 </p>
                 <div className="bg-slate-50 p-4 rounded-lg">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground mb-1">
                         Serving Size
@@ -290,32 +310,34 @@ export default function ProductDetailsPage() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="benefits" className="p-6">
+              <TabsContent value="benefits" className="p-4 sm:p-6">
                 <h3 className="text-lg font-semibold mb-4">Key Benefits</h3>
                 <ul className="space-y-3">
                   {product.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <Check className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{benefit}</span>
+                      <span className="text-muted-foreground text-sm sm:text-base">
+                        {benefit}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </TabsContent>
 
-              <TabsContent value="ingredients" className="p-6">
+              <TabsContent value="ingredients" className="p-4 sm:p-6">
                 <h3 className="text-lg font-semibold mb-4">Ingredients</h3>
                 <div className="bg-slate-50 p-4 rounded-lg">
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-sm sm:text-base">
                     {product.ingredients.join(", ")}
                   </p>
                 </div>
               </TabsContent>
 
-              <TabsContent value="directions" className="p-6">
+              <TabsContent value="directions" className="p-4 sm:p-6">
                 <h3 className="text-lg font-semibold mb-4">
                   Directions for Use
                 </h3>
-                <p className="text-muted-foreground mb-6">
+                <p className="text-muted-foreground mb-6 text-sm sm:text-base">
                   {product.directions}
                 </p>
 
