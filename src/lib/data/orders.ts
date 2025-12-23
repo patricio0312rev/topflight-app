@@ -36,6 +36,7 @@ export interface Order {
 
 // In-memory storage for orders (will be cleared on page refresh as per requirements)
 let orders: Order[] = [];
+let dummyOrdersInitialized = false;
 
 export function generateOrderNumber(): string {
   const timestamp = Date.now();
@@ -74,108 +75,160 @@ export function updateOrderStatus(id: string, status: OrderStatus): Order | unde
   return order;
 }
 
-// Dummy orders for initial display
+// Dummy orders for initial display - only initialize once
 export function initializeDummyOrders() {
-  if (orders.length === 0) {
-    const dummyOrders: Order[] = [
-      {
-        id: 'order-1',
-        orderNumber: 'ORD-1703001234-001',
-        items: [
-          {
-            product: {
-              id: '1',
-              name: 'Whey Protein Isolate',
-              description: 'Premium whey protein isolate',
-              longDescription: '',
-              price: 49.99,
-              image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=500&h=500&fit=crop',
-              images: [],
-              category: 'Protein',
-              isBestSeller: true,
-              stock: 150,
-              rating: 4.8,
-              reviews: 234,
-              servingSize: '1 scoop',
-              servingsPerContainer: 30,
-              ingredients: [],
-              benefits: [],
-              directions: '',
-              warnings: [],
-            },
-            quantity: 1,
-            price: 49.99,
-          },
-        ],
-        shippingInfo: {
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phone: '+1234567890',
-          address: '123 Main St',
-          city: 'New York',
-          state: 'NY',
-          zipCode: '10001',
-          country: 'United States',
-        },
-        subtotal: 49.99,
-        shipping: 5.99,
-        tax: 4.00,
-        total: 59.98,
-        status: 'delivered',
-        createdAt: '2024-12-15T10:30:00.000Z',
-        updatedAt: '2024-12-20T14:20:00.000Z',
-      },
-      {
-        id: 'order-2',
-        orderNumber: 'ORD-1703002345-002',
-        items: [
-          {
-            product: {
-              id: '2',
-              name: 'Creatine Monohydrate',
-              description: 'Pure creatine monohydrate',
-              longDescription: '',
-              price: 29.99,
-              image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=500&h=500&fit=crop',
-              images: [],
-              category: 'Performance',
-              isBestSeller: true,
-              stock: 200,
-              rating: 4.9,
-              reviews: 456,
-              servingSize: '1 scoop',
-              servingsPerContainer: 60,
-              ingredients: [],
-              benefits: [],
-              directions: '',
-              warnings: [],
-            },
-            quantity: 1,
-            price: 29.99,
-          },
-        ],
-        shippingInfo: {
-          firstName: 'Jane',
-          lastName: 'Smith',
-          email: 'jane.smith@example.com',
-          phone: '+1987654321',
-          address: '456 Oak Ave',
-          city: 'Los Angeles',
-          state: 'CA',
-          zipCode: '90001',
-          country: 'United States',
-        },
-        subtotal: 29.99,
-        shipping: 5.99,
-        tax: 2.40,
-        total: 38.38,
-        status: 'shipped',
-        createdAt: '2024-12-18T15:45:00.000Z',
-        updatedAt: '2024-12-22T09:15:00.000Z',
-      },
-    ];
-    
-    orders = dummyOrders;
+  if (dummyOrdersInitialized) {
+    return;
   }
+  
+  dummyOrdersInitialized = true;
+
+  const dummyOrders: Order[] = [
+    {
+      id: 'order-1',
+      orderNumber: 'ORD-1703001234-001',
+      items: [
+        {
+          product: {
+            id: '1',
+            name: 'Whey Protein Isolate',
+            description: 'Premium whey protein isolate',
+            longDescription: '',
+            price: 49.99,
+            image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=500&h=500&fit=crop',
+            images: [],
+            category: 'Protein',
+            isBestSeller: true,
+            stock: 150,
+            rating: 4.8,
+            reviews: 234,
+            servingSize: '1 scoop',
+            servingsPerContainer: 30,
+            ingredients: [],
+            benefits: [],
+            directions: '',
+            warnings: [],
+          },
+          quantity: 1,
+          price: 49.99,
+        },
+      ],
+      shippingInfo: {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        phone: '+1234567890',
+        address: '123 Main St',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '10001',
+        country: 'United States',
+      },
+      subtotal: 49.99,
+      shipping: 5.99,
+      tax: 4.00,
+      total: 59.98,
+      status: 'delivered',
+      createdAt: '2024-12-15T10:30:00.000Z',
+      updatedAt: '2024-12-20T14:20:00.000Z',
+    },
+    {
+      id: 'order-2',
+      orderNumber: 'ORD-1703002345-002',
+      items: [
+        {
+          product: {
+            id: '2',
+            name: 'Creatine Monohydrate',
+            description: 'Pure creatine monohydrate',
+            longDescription: '',
+            price: 29.99,
+            image: 'https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=500&h=500&fit=crop',
+            images: [],
+            category: 'Performance',
+            isBestSeller: true,
+            stock: 200,
+            rating: 4.9,
+            reviews: 456,
+            servingSize: '1 scoop',
+            servingsPerContainer: 60,
+            ingredients: [],
+            benefits: [],
+            directions: '',
+            warnings: [],
+          },
+          quantity: 1,
+          price: 29.99,
+        },
+      ],
+      shippingInfo: {
+        firstName: 'Jane',
+        lastName: 'Smith',
+        email: 'jane.smith@example.com',
+        phone: '+1987654321',
+        address: '456 Oak Ave',
+        city: 'Los Angeles',
+        state: 'CA',
+        zipCode: '90001',
+        country: 'United States',
+      },
+      subtotal: 29.99,
+      shipping: 5.99,
+      tax: 2.40,
+      total: 38.38,
+      status: 'shipped',
+      createdAt: '2024-12-18T15:45:00.000Z',
+      updatedAt: '2024-12-22T09:15:00.000Z',
+    },
+    {
+      id: 'order-3',
+      orderNumber: 'ORD-1703003456-003',
+      items: [
+        {
+          product: {
+            id: '3',
+            name: 'Omega-3 Fish Oil',
+            description: 'High-quality omega-3 fatty acids',
+            longDescription: '',
+            price: 24.99,
+            image: 'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=500&h=500&fit=crop',
+            images: [],
+            category: 'Health',
+            isBestSeller: true,
+            stock: 300,
+            rating: 4.7,
+            reviews: 189,
+            servingSize: '2 softgels',
+            servingsPerContainer: 60,
+            ingredients: [],
+            benefits: [],
+            directions: '',
+            warnings: [],
+          },
+          quantity: 1,
+          price: 24.99,
+        },
+      ],
+      shippingInfo: {
+        firstName: 'Mike',
+        lastName: 'Johnson',
+        email: 'mike.j@example.com',
+        phone: '+1555666777',
+        address: '789 Pine Rd',
+        city: 'Chicago',
+        state: 'IL',
+        zipCode: '60601',
+        country: 'United States',
+      },
+      subtotal: 24.99,
+      shipping: 5.99,
+      tax: 2.00,
+      total: 32.98,
+      status: 'processing',
+      createdAt: '2024-12-20T08:20:00.000Z',
+      updatedAt: '2024-12-21T10:30:00.000Z',
+    },
+  ];
+  
+  orders.push(...dummyOrders);
 }
