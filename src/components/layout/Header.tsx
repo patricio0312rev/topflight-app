@@ -62,7 +62,7 @@ export function Header() {
               <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-2 rounded-lg">
                 <Package className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <span className="text-md md:text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 {isProviderPortal ? "Provider Portal" : "SupplementStore"}
               </span>
             </motion.div>

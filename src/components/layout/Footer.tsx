@@ -158,7 +158,7 @@ export function Footer() {
             <p className="text-slate-400 text-sm mb-4">
               Get the latest updates on new products and exclusive offers.
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row gap-2">
               <input
                 type="email"
                 placeholder="Enter your email"
