@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
@@ -14,9 +14,9 @@ export function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
   const { getTotalItems } = useCart();
   const cartItemsCount = getTotalItems();
-  const pathname = usePathname();
 
   const isProviderPortal = pathname?.startsWith("/provider");
 
@@ -34,17 +34,11 @@ export function Header() {
   });
 
   const navigation = isProviderPortal
-    ? [
-        { name: "Dashboard", href: "/provider" },
-        { name: "Products", href: "/provider/products" },
-        { name: "Orders", href: "/provider/orders" },
-        { name: "Analytics", href: "/provider/analytics" },
-      ]
+    ? [{ name: "Orders", href: "/provider/orders" }]
     : [
-        { name: "Shop", href: "/products" },
-        { name: "Categories", href: "/categories" },
-        { name: "About", href: "/about" },
-        { name: "Contact", href: "/contact" },
+        { name: "Home", href: "/" },
+        { name: "Products", href: "/products" },
+        { name: "FAQs", href: "/#faq" },
       ];
 
   return (
@@ -59,10 +53,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link
-            href={isProviderPortal ? "/provider" : "/"}
-            className="flex items-center space-x-2"
-          >
+          <Link href={"/"} className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -83,25 +74,13 @@ export function Header() {
               <Link key={item.name} href={item.href}>
                 <Button
                   variant={pathname === item.href ? "default" : "ghost"}
-                  className={`relative ${
+                  className={
                     pathname === item.href
                       ? "bg-emerald-500 hover:bg-emerald-600"
                       : ""
-                  }`}
+                  }
                 >
                   {item.name}
-                  {pathname === item.href && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500"
-                      initial={false}
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    />
-                  )}
                 </Button>
               </Link>
             ))}
@@ -111,11 +90,11 @@ export function Header() {
           <div className="flex items-center space-x-2">
             {!isProviderPortal ? (
               <>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Link href="/cart">
+                <Link href="/cart">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
                     <Button variant="ghost" size="icon" className="relative">
                       <ShoppingCart className="h-5 w-5" />
                       {cartItemsCount > 0 && (
@@ -124,9 +103,17 @@ export function Header() {
                         </span>
                       )}
                     </Button>
-                  </Link>
+                  </motion.div>
+                </Link>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
                 </motion.div>
-                <Link href="/provider" className="hidden md:block">
+                <Link href="/provider/orders" className="hidden md:block">
                   <Button variant="outline" size="sm">
                     Provider Portal
                   </Button>
@@ -174,7 +161,7 @@ export function Header() {
                     </Link>
                   ))}
                   <div className="pt-4 border-t">
-                    <Link href={isProviderPortal ? "/" : "/provider"}>
+                    <Link href={isProviderPortal ? "/" : "/provider/orders"}>
                       <Button variant="outline" className="w-full">
                         {isProviderPortal
                           ? "Go to Storefront"
