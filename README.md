@@ -151,7 +151,3 @@ topflight-app/
 - Payment gateway integration
 - Email notifications
 - Advanced analytics dashboard
-
-## License
-
-[Your License Here]
