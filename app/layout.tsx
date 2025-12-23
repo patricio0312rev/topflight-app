@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <CartProvider>
           {children}
-          <Toaster position="top-center" richColors />
+          <Toaster position="bottom-right" richColors />
         </CartProvider>
       </body>
     </html>
