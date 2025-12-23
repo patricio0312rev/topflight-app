@@ -179,10 +179,7 @@ export default function ProductsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                   >
-                    <ProductCard
-                      product={product}
-                      onAddToCart={handleAddToCart}
-                    />
+                    <ProductCard product={product} />
                   </motion.div>
                 ))}
               </motion.div>

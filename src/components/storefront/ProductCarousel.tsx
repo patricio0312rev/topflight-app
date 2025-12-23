@@ -55,7 +55,7 @@ export function ProductCarousel({
               key={product.id}
               className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] xl:flex-[0_0_25%]"
             >
-              <ProductCard product={product} onAddToCart={onAddToCart} />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>

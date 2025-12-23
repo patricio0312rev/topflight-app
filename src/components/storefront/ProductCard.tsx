@@ -3,18 +3,26 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShoppingCart, Star } from "lucide-react";
+import { ShoppingCart, Star, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Product } from "@/lib/data/products";
+import { useCart } from "@/contexts/CartContext";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart, isInCart } = useCart();
+  const inCart = isInCart(product.id);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    addToCart(product);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -35,7 +43,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
                 Best Seller
               </Badge>
             )}
-            {product.stock < 50 && (
+            {product.stock < 50 && product.stock > 0 && (
               <Badge variant="warning" className="absolute top-3 left-3">
                 Low Stock
               </Badge>
@@ -74,14 +82,23 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </span>
           <Button
             size="sm"
-            onClick={(e) => {
-              e.preventDefault();
-              onAddToCart?.(product);
-            }}
-            className="bg-emerald-500 hover:bg-emerald-600"
+            onClick={handleAddToCart}
+            disabled={inCart || product.stock === 0}
+            className={
+              inCart ? "bg-slate-400" : "bg-emerald-500 hover:bg-emerald-600"
+            }
           >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            Add to Cart
+            {inCart ? (
+              <>
+                <Check className="h-4 w-4 mr-2" />
+                In Cart
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="h-4 w-4 mr-2" />
+                Add to Cart
+              </>
+            )}
           </Button>
         </CardFooter>
       </Card>

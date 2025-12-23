@@ -7,12 +7,15 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ShoppingCart, User, Package } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { scrollY } = useScroll();
+  const { getTotalItems } = useCart();
+  const cartItemsCount = getTotalItems();
   const pathname = usePathname();
 
   const isProviderPortal = pathname?.startsWith("/provider");
@@ -112,20 +115,16 @@ export function Header() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <Button variant="ghost" size="icon" className="relative">
-                    <ShoppingCart className="h-5 w-5" />
-                    <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                      3
-                    </span>
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Button variant="ghost" size="icon">
-                    <User className="h-5 w-5" />
-                  </Button>
+                  <Link href="/cart">
+                    <Button variant="ghost" size="icon" className="relative">
+                      <ShoppingCart className="h-5 w-5" />
+                      {cartItemsCount > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                          {cartItemsCount}
+                        </span>
+                      )}
+                    </Button>
+                  </Link>
                 </motion.div>
                 <Link href="/provider" className="hidden md:block">
                   <Button variant="outline" size="sm">
