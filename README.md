@@ -1,28 +1,75 @@
 # Topflight Storefront
 
-Supplement store UI built with the Next.js App Router. Includes a full browsing-to-checkout flow plus a lightweight provider view for orders.
+A modern supplement store application built with Next.js App Router, featuring a customer-facing storefront and an administrative provider portal.
 
 ## Features
 
-- Storefront home with hero, FAQ, and best-seller carousel.
-- Product catalog with search, category and price filters, sort options, best-seller toggle, and mobile-friendly filters.
-- Product detail pages with gallery, ratings, trust badges, and tabbed nutrition/usage info.
-- Cart with quantity guard (1 per product), shipping/tax breakdown, and clear/remove actions.
-- Checkout form with validation, toasts, and simulated order creation (in-memory orders for demo).
-- Provider/admin orders table (sorting/filtering/pagination) scaffolded for back-office views.
+### Storefront (Customer-Facing)
+
+- **Homepage**: Hero section, best-seller carousel, and FAQ accordion
+- **Product Catalog**:
+  - Search by product name or description
+  - Filter by category, price range, and best-sellers
+  - Sort by price, name, or popularity
+  - Responsive mobile filters with slide-out sheet
+- **Product Details**:
+  - Image gallery with multiple photos
+  - Product ratings and reviews
+  - Tabbed information (description, benefits, ingredients, directions)
+  - Trust badges (free shipping, secure checkout, easy returns)
+- **Shopping Cart**:
+  - Quantity limited to 1 per product
+  - Real-time price calculations (subtotal, shipping, tax)
+  - Clear cart and remove individual items
+  - Free shipping threshold indicator
+- **Checkout**:
+  - Validated shipping information form
+  - Order summary with toast notifications
+  - In-memory order storage (resets on page refresh)
+
+### Provider Portal (Admin)
+
+- **Orders Table**:
+  - Paginated order list with sorting
+  - Search by order ID, customer name, or product name
+  - Filter by status and date range
+  - Responsive table design
+- **Order Details**:
+  - Comprehensive order information
+  - Customer contact and shipping details
+  - Order status management with dropdown
+  - Order timeline and summary
 
 ## Tech Stack
 
-- Next.js 16 (App Router), React 19, TypeScript
-- Tailwind CSS v4, Radix UI primitives, `class-variance-authority`, `tailwind-merge`
-- Framer Motion animations, Embla Carousel, Lucide icons, Sonner toasts
-- TanStack React Table for provider order views
+- **Framework**: Next.js 16 (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS v4, shadcn/ui (New York style)
+- **UI Components**: Radix UI primitives, `class-variance-authority`, `tailwind-merge`
+- **Animations**: Framer Motion, smooth scroll animations
+- **Features**:
+  - Embla Carousel for product carousels
+  - Lucide React icons
+  - Sonner for toast notifications
+  - TanStack Table (React Table v8) for order management
+  - React Context API for cart state management
 
 ## Getting Started
 
-Prerequisites: Node.js 18+ and either `pnpm` or `npm`.
+### Prerequisites
 
-Install dependencies:
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd topflight-app
+```
+
+2. Install dependencies:
 
 ```bash
 pnpm install
@@ -30,7 +77,7 @@ pnpm install
 npm install
 ```
 
-Run the dev server:
+3. Run the development server:
 
 ```bash
 pnpm dev
@@ -38,20 +85,73 @@ pnpm dev
 npm run dev
 ```
 
-Then open http://localhost:3000.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-Build and start production:
+### Build for Production
 
 ```bash
-pnpm build && pnpm start
+pnpm build
+pnpm start
 # or
-npm run build && npm start
+npm run build
+npm start
 ```
 
-Lint:
+### Linting
 
 ```bash
 pnpm lint
 # or
 npm run lint
 ```
+
+## Project Structure
+
+```
+topflight-app/
+├── app/                          # Next.js App Router pages
+│   ├── page.tsx                 # Homepage
+│   ├── products/                # Product pages
+│   ├── cart/                    # Shopping cart
+│   ├── checkout/                # Checkout flow
+│   └── provider/                # Provider portal
+│       └── orders/              # Order management
+├── src/
+│   ├── components/
+│   │   ├── layout/              # Header, Footer, MainLayout
+│   │   ├── storefront/          # Customer-facing components
+│   │   ├── provider/            # Admin components
+│   │   └── ui/                  # shadcn/ui components
+│   ├── contexts/                # React Context (Cart)
+│   ├── hooks/                   # Custom hooks (useDebounce)
+│   └── lib/
+│       └── data/                # Data models and in-memory storage
+└── public/                      # Static assets
+```
+
+## Key Features & Implementation Notes
+
+- **Cart Management**: Uses React Context API for global state, persists only during session
+- **Orders**: Stored in-memory for demonstration purposes (clears on page refresh)
+- **Product Data**: Static dummy data with 15+ products across multiple categories
+- **Responsive Design**: Mobile-first approach with Tailwind breakpoints
+- **Optimizations**: Debounced search, memoized filters, optimized re-renders
+
+## Demo Data
+
+- The application includes pre-populated product data with various categories (Protein, Performance, Health, Recovery)
+- Orders created through checkout are stored in memory and viewable in the Provider Portal
+- Data resets on page refresh (by design for demonstration purposes)
+
+## Future Enhancements
+
+- Backend API integration
+- Database persistence
+- User authentication
+- Payment gateway integration
+- Email notifications
+- Advanced analytics dashboard
+
+## License
+
+[Your License Here]
