@@ -4,17 +4,12 @@ import React, { useState, useMemo } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { OrdersTable } from "@/components/provider/OrdersTable";
 import { OrderFilters } from "@/components/provider/OrderFilters";
-import { getAllOrders, initializeDummyOrders } from "@/lib/data/orders";
+import { getAllOrders } from "@/lib/data/orders";
 import { motion } from "framer-motion";
 import { Package } from "lucide-react";
 import { SortingState, ColumnFiltersState } from "@tanstack/react-table";
 
 export default function ProviderOrdersPage() {
-  // Initialize dummy orders
-  React.useEffect(() => {
-    initializeDummyOrders();
-  }, []);
-
   const orders = getAllOrders();
 
   const [searchQuery, setSearchQuery] = useState("");

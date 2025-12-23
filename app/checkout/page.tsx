@@ -11,11 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
 import { ShoppingCart, CreditCard, Loader2 } from "lucide-react";
-import {
-  createOrder,
-  ShippingInfo,
-  initializeDummyOrders,
-} from "@/lib/data/orders";
+import { createOrder, ShippingInfo } from "@/lib/data/orders";
 import { toast } from "sonner";
 
 export default function CheckoutPage() {
@@ -40,9 +36,6 @@ export default function CheckoutPage() {
   >({});
 
   useEffect(() => {
-    // Initialize dummy orders on mount
-    initializeDummyOrders();
-
     // Redirect if cart is empty
     if (items.length === 0) {
       router.push("/cart");
